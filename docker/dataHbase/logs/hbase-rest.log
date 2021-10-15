@@ -1,0 +1,26 @@
+2021-09-27 21:06:43,199 INFO  [main] RESTServer: ***** STARTING service 'RESTServer' *****
+2021-09-27 21:06:43,207 INFO  [main] util.VersionInfo: HBase 2.1.2
+2021-09-27 21:06:43,207 INFO  [main] util.VersionInfo: Source code repository git://kalashnikov/Users/stack/checkouts/hbase.git revision=1dfc418f77801fbfb59a125756891b9100c1fc6d
+2021-09-27 21:06:43,207 INFO  [main] util.VersionInfo: Compiled by stack on Sun Dec 30 21:45:09 PST 2018
+2021-09-27 21:06:43,207 INFO  [main] util.VersionInfo: From source with checksum 5701bcce2fc4832a4b2990adc735b516
+2021-09-27 21:06:43,672 WARN  [main] util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2021-09-27 21:06:44,250 INFO  [main] metrics.MetricRegistries: Loaded MetricRegistries class org.apache.hadoop.hbase.metrics.impl.MetricRegistriesImpl
+2021-09-27 21:06:44,358 INFO  [main] util.log: Logging initialized @1484ms
+2021-09-27 21:06:44,631 INFO  [main] http.HttpRequestLog: Http request log for http.requests.rest is not defined
+2021-09-27 21:06:44,641 INFO  [main] http.HttpServer: Added global filter 'safety' (class=org.apache.hadoop.hbase.http.HttpServer$QuotingInputFilter)
+2021-09-27 21:06:44,642 INFO  [main] http.HttpServer: Added global filter 'clickjackingprevention' (class=org.apache.hadoop.hbase.http.ClickjackingPreventionFilter)
+2021-09-27 21:06:44,647 INFO  [main] http.HttpServer: Added filter static_user_filter (class=org.apache.hadoop.hbase.http.lib.StaticUserWebFilter$StaticUserFilter) to context rest
+2021-09-27 21:06:44,647 INFO  [main] http.HttpServer: Added filter static_user_filter (class=org.apache.hadoop.hbase.http.lib.StaticUserWebFilter$StaticUserFilter) to context static
+2021-09-27 21:06:44,647 INFO  [main] http.HttpServer: Added filter static_user_filter (class=org.apache.hadoop.hbase.http.lib.StaticUserWebFilter$StaticUserFilter) to context logs
+2021-09-27 21:06:44,656 INFO  [main] http.HttpServer: Jetty bound to port 8085
+2021-09-27 21:06:44,657 INFO  [main] server.Server: jetty-9.3.19.v20170502
+2021-09-27 21:06:44,716 INFO  [main] handler.ContextHandler: Started o.e.j.s.ServletContextHandler@6c1a5b54{/logs,file:///opt/hbase/logs/,AVAILABLE}
+2021-09-27 21:06:44,718 INFO  [main] handler.ContextHandler: Started o.e.j.s.ServletContextHandler@60099951{/static,file:///opt/hbase/hbase-webapps/static/,AVAILABLE}
+2021-09-27 21:06:44,891 INFO  [main] handler.ContextHandler: Started o.e.j.w.WebAppContext@24c1b2d2{/,file:///opt/hbase/hbase-webapps/rest/,AVAILABLE}{file:/opt/hbase/hbase-webapps/rest}
+2021-09-27 21:06:44,905 INFO  [main] server.AbstractConnector: Started ServerConnector@45385f75{HTTP/1.1,[http/1.1]}{0.0.0.0:8085}
+2021-09-27 21:06:44,905 INFO  [main] server.Server: Started @2033ms
+2021-09-27 21:06:44,906 INFO  [main] server.Server: jetty-9.3.19.v20170502
+2021-09-27 21:06:44,918 WARN  [main] security.SecurityHandler: ServletContext@o.e.j.s.ServletContextHandler@759d26fb{/,null,STARTING} has uncovered http methods for path: /*
+2021-09-27 21:06:45,539 INFO  [main] handler.ContextHandler: Started o.e.j.s.ServletContextHandler@759d26fb{/,null,AVAILABLE}
+2021-09-27 21:06:45,547 INFO  [main] server.AbstractConnector: Started ServerConnector@41e1e210{HTTP/1.1,[http/1.1]}{0.0.0.0:8080}
+2021-09-27 21:06:45,547 INFO  [main] server.Server: Started @2675ms

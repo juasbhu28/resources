@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+
+  mysqldb:
+    image: mysql/mysql-server    
+    restart: always    
+    environment:
+      - MYSQL_ROOT_PASSWORD=P4r4d0j4
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=P4r4d0j4
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./config/config:/root/docker/mysql-docker/conf.d"
+      - "./config/mysql-data:/storage/docker/mysql-data"

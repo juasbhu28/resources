@@ -1,0 +1,12 @@
+version: "2"
+
+services:
+  sonarqube:
+    build: sonarqube
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+    volumes:
+        - ./config/data:/opt/sonarqube/data
+        - ./config/extensions:/opt/sonarqube/extensions
+
