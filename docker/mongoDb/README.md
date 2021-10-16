@@ -74,51 +74,138 @@ Deduzca para que sirve el siguiente comando:
 Conteste las siguientes preguntas utilizando el comando necesario. (En un documento de Word escriba la pregunta, el comando que utilizo para contestarla y la respuesta que dio la base de datos) 
 
 
-**1.** ¿Cuantos documentos hay en la colección users? 
->  db.runCommand({ count: 'users' })
+### 1. ¿Cuantos documentos hay en la colección users? 
++ Opción  1
+``` js
+    > db.runCommand({ count: 'users' })
+ ```   
++ Opción 2
+``` js
+    > db.users.count()
+```
+### 2. ¿Cuantos documentos hay en la colección movies? 
++ Opción  1
+``` js
+    > db.runCommand({ count: 'movies' })
+```
++ Opción 2
+``` js
+    > db.movies.count()
+```
+### 3. ¿Cuál es el trabajo de Clifford Johnatan? Muestre solo su nombre y ocupación 
 
-**2.** ¿Cuantos documentos hay en la colección movies? 
->   db.runCommand({ count: 'movies' })
 
-**3.** ¿Cuál es el trabajo de Clifford Johnatan? Muestre solo su nombre y ocupación 
 
-Similiar a LIKE SQL
-> db.users.find({ name : /Clifford/ }, { occupation: 1, name: 1 } );
-
-> db.users.find({ name : "Clifford Jonathan" }, { occupation: 1, name: 1 } );
-
++ Opcion 1
+``` js
+   > db.users.find( { name: "Clifford Johnathan" }, { "name": 1, "occupation": 1 } 
+```
++ Opcion 2
+``` js
+   > db.users.find({ name : "Clifford Jonathan" }, { occupation: 1, name: 1 } );
+```
++ Otro
+``` js
+    > db.users.find({ name : /Clifford/ }, { occupation: 1, name: 1 } ) //Similiar a LIKE in SQL
+```
+**Resultado**
 ```json
+//Otro usuario con nombre similiar like
 { "_id" : 2593, "name" : "Clifford Jonathan", "occupation" : "self-employed" }
+
+//Resultado esperado.
+{ "_id" : 1276, "name" : "Clifford Johnathan", "occupation" : "technician/engineer" }
 ```
 
-**4.** ¿Cuantos documentos de la colección user tienen entre 18 y 30 años? 
-> db.users.find({ age : { "$gt" : 18, "$lt": 30 }}).count()
-
-**5.** ¿Cuantos usuarios hay que sean científicos o artistas? (“artista” “scientist”) 
-> db.users.find({ occupation : { "$in" : ["artista", "scientist"] }}).count()
-
+### 4. ¿Cuantos documentos de la colección user tienen entre 18 y 30 años? 
+``` js
+   > db.users.find({ age : { "$gt" : 18, "$lt": 30 }}).count()
 ```
-144
+### 5. ¿Cuantos usuarios hay que sean científicos o artistas? (“artista” “scientist”) 
++ Opcion 1
+``` js
+   > db.users.find({ occupation : { "$in" : ["artista", "scientist"] }}).count() `--144`
+```
++ Opcion 2
+``` js
+   > db.users.find({ occupation: { $in: [ "artist", "scientist" ] }}).count() `--411`
+```
+### 6. ¿Cuales son las 10 mujeres con mayor edad? 
++ Top 10
+``` js
+  > db.users.find( { gender: "F" }, { name: 1, age: 1 } ).sort( { age: -1 } ).limit( 10 )
+```
++ Total
+``` js
+  > db.users.find({ gender : "F", age : { "$gt" : 28 }}).count()
 ```
 
-**6.** ¿Cuales son las 10 mujeres con mayor edad? 
-> db.users.find({ gender : "F", age : { "$gt" : 28 }}).count()
-
+### 7. Muestre todas las ocupaciones de los usuarios.
++ Opcion 1
+``` js
+  > db.users.find({}, { occupation: 1})
 ```
-1121
++ Opcion 2
+``` js
+  > db.users.aggregate ( { $group: { _id: { occupation: "$occupation"  } } } )  `-- Agrupa para no repetir`
+```
+### 8. Inserte en la base de datos su propio nombre sin incluir el campo movies 
+
++ Insert
+``` js
+   > db.users.insert ( { "name" : "Juan Botello", "gender" : "M", "age" : 27, "occupation" : "technician/engineer"})
+```
++ Buscar
+``` js
+   > db.users.find( { name: "Juan Botello" } )
+```
+### 9. Seleccione una película cualquiera existente en la colección movies y actualice el documento que inserto anteriormente adicionando la película que selecciono e incluya una calificación de la misma 
++ Update
+``` js
+    > db.users.update ( { name: "Juan Botello" }, { $set: { movies: [ { movieid: 1419, rating: 2 } ] } } )
+```
+### 10. Elimine el registro modificado en el punto anterior 
++ Delete registro
+``` js
+   > db.users.deleteOne( { name: "Alexander Andrade" } )
+```
++ Delete actualización 
+``` js
+```
+### 11. Cambie todos los usuarios que tengan la ocupación programador (programmer) por desarrollador (developer). Utilice expresiones regulares para contestar las siguientes preguntas: 
+* Actualizar masivamente. (Update)
+``` js
+   > db.users.updateMany ( { occupation: "programmer" }, { $set: { occupation: "developer" } } )
+```
+### 12. ¿Qué títulos incluyen la fecha de lanzamiento entre paréntesis? 
++ Usando una operación con regex.
+``` js
+   > db.movies.find( { title: { $regex: /.*\([0-9]{4}\).*/ } }, { title: 1 } )
+```
+### 13. ¿Qué películas han sido estrenadas entre 1984 y 1992? 
++ Los titulo tienen la fecha de estreno, ejmp `Walkabout (1971)`.
+``` js
+   > db.movies.find( { title: { $regex: /.*\((198[4-9]{1}|199[0-2]{1})\)` } }, { title: 1 } )
 ```
 
-**7.** Muestre todas las ocupaciones de los usuarios.
-> db.users.find({}, { occupation: 1})
+### 14. ¿Cuantas películas de horror hay? 
++ Los titulos 
+``` js
+      > db.movies.find( { genres: { $regex: /.*Horror.*/ } } )
+```
+### 15. ¿Cuantas películas hay que sean de los géneros romance y musical al mismo tiempo (“Romance” “Musical”)?
+``` js
+> db.movies.find( { genres: { $regex: /.*Musical.*Romance.*|.*Romance.*Musical.*/ } } ).count()
+```
 
 
-## Si quiere elimar la base de datos 
+## Para elimar la base de datos 
 
-Una vez subes docker entra al bash de mongo
+* Una vez subes docker entra al bash de mongo
 
-> use movieLens
+   > use movieLens
 
-> db.dropDatabase()
+  > db.dropDatabase()
 
 
 
