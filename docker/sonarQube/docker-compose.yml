@@ -1,12 +1,31 @@
-version: "2"
+version: '3.8'
 
 services:
-  sonarqube:
-    build: sonarqube
-    container_name: sonarqube
+  postgresdb:
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    ports:
+      - "9099:9099"
+    volumes:
+      - sonarqubedb:/var/lib/postgresql/data  # Aquí se especifica el volumen
+    networks:
+      - sonarnet
+
+  sonarqube:    
+    build:
+      context: .
+      dockerfile: Dockerfile.sonar
     ports:
       - "9000:9000"
-    volumes:
-        - ./config/data:/opt/sonarqube/data
-        - ./config/extensions:/opt/sonarqube/extensions
+    depends_on:
+      - postgresdb    
+    networks:
+      - sonarnet
 
+networks:
+  sonarnet:
+    driver: bridge
+
+volumes:  # Define el volumen sonarqubedb
+  sonarqubedb:

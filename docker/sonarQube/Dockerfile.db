@@ -1,0 +1,12 @@
+# Use the official PostgreSQL image as the base image
+FROM postgres:16.1
+
+# Set environment variables for PostgreSQL
+ENV POSTGRES_DB=sonarDb
+ENV POSTGRES_USER=sonar
+ENV POSTGRES_PASSWORD=sonar
+
+# Expose the default PostgreSQL port
+EXPOSE 9099
+
+VOLUME /var/lib/postgresql/data
