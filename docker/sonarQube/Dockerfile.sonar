@@ -1,11 +1,15 @@
-FROM sonarqube:latest
+FROM sonarqube:lts-community
 
 # Variables de entorno para la configuración de SonarQube
 ENV SONAR_JDBC_URL=jdbc:postgresql://postgresdb:5432/sonarDb
 ENV SONAR_JDBC_USERNAME=sonar
 ENV SONAR_JDBC_PASSWORD=sonar
 
+# postgresql.jar es el driver de la base de datos
 COPY postgresql.jar /opt/sonarqube/lib/  
+
+# Ensure clean start
+RUN rm -rf /opt/sonarqube/temp/* /opt/sonarqube/data/es7/*
 
 # Exponer el puerto que utiliza SonarQube
 EXPOSE 9000

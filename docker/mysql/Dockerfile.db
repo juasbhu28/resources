@@ -1,0 +1,12 @@
+FROM mysql:8.4.0
+
+ENV MYSQL_ROOT_PASSWORD=root_password
+ENV MYSQL_DATABASE=newsql
+
+COPY ./db/my.cnf /etc/mysql/conf.d/my.cnf
+COPY ./db/*.sql /docker-entrypoint-initdb.d/
+
+# Asegurar permisos correctos
+RUN chown -R mysql:mysql /var/lib/mysql
+
+EXPOSE 3306

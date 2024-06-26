@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 PROJECT_NAME := $(shell basename $(PWD))
 
-.PHONY: run_all build_docker run_docker 
+.PHONY: run_all build_docker run_docker run_colima
 
 run_all:
 	@echo "Starting project $(PROJECT_NAME)..."
@@ -15,3 +15,7 @@ build_docker:
 
 run_docker:
 	docker-compose up
+
+run_colima:
+	colima stop && colima start --cpu 2 --memory 3 --mount-type 9p --arch aarch64
+	colima exec -- sudo sysctl -w vm.max_map_count=262144
