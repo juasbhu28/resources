@@ -6,9 +6,11 @@ ENV SONAR_JDBC_USERNAME=sonar
 ENV SONAR_JDBC_PASSWORD=sonar
 
 # postgresql.jar es el driver de la base de datos
-COPY postgresql.jar /opt/sonarqube/lib/  
+COPY postgresql.jar /opt/sonarqube/lib/
 
-# Ensure clean start
+# Eliminar los archivos temporales y de datos de ElasticSearch
+# para evitar problemas de permisos
+# No borra la data de la base de datos
 RUN rm -rf /opt/sonarqube/temp/* /opt/sonarqube/data/es7/*
 
 # Exponer el puerto que utiliza SonarQube

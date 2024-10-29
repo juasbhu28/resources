@@ -15,7 +15,3 @@ build_docker:
 
 run_docker:
 	docker-compose up
-
-run_colima:
-	colima stop && colima start --cpu 2 --memory 3 --mount-type 9p --arch aarch64
-	colima exec -- sudo sysctl -w vm.max_map_count=262144
